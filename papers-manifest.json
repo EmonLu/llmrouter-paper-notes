@@ -1,0 +1,92 @@
+[
+  {
+    "group": "core",
+    "short": "survey-dynamic-model-routing-and-cascading",
+    "id": "2603.04445",
+    "title": "Dynamic Model Routing and Cascading"
+  },
+  {
+    "group": "core",
+    "short": "tab-turn-adaptive-budgets",
+    "id": "2604.05164",
+    "title": "Turn-Adaptive Budgets"
+  },
+  {
+    "group": "core",
+    "short": "graphplanner",
+    "id": "2604.23626",
+    "title": "GraphPlanner"
+  },
+  {
+    "group": "core",
+    "short": "trace-dont-overthink-it",
+    "id": "2604.08369",
+    "title": "TrACE"
+  },
+  {
+    "group": "core",
+    "short": "agent-capsules",
+    "id": "2605.00410",
+    "title": "Agent Capsules"
+  },
+  {
+    "group": "foundation",
+    "short": "routellm",
+    "id": "2406.18665",
+    "title": "RouteLLM"
+  },
+  {
+    "group": "foundation",
+    "short": "automix",
+    "id": "2310.12963",
+    "title": "AutoMix"
+  },
+  {
+    "group": "foundation",
+    "short": "ecoassistant",
+    "id": "2310.03046",
+    "title": "EcoAssistant"
+  },
+  {
+    "group": "foundation",
+    "short": "frugalgpt",
+    "id": "2305.05176",
+    "title": "FrugalGPT"
+  },
+  {
+    "group": "foundation",
+    "short": "test-time-compute",
+    "id": "2408.03314",
+    "title": "Test-time Compute"
+  },
+  {
+    "group": "foundation",
+    "short": "s1",
+    "id": "2501.19393",
+    "title": "s1"
+  },
+  {
+    "group": "foundation",
+    "short": "routerbench",
+    "id": "2403.12031",
+    "title": "RouterBench"
+  },
+  {
+    "group": "foundation",
+    "short": "optllm",
+    "id": "2405.15130",
+    "title": "OptLLM"
+  },
+  {
+    "group": "foundation",
+    "short": "routeprofile",
+    "id": "2605.00180",
+    "title": "RouteProfile"
+  },
+  {
+    "group": "foundation",
+    "short": "irt-router",
+    "id": "2506.01048",
+    "title": "IRT-Router"
+  }
+]

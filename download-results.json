@@ -1,0 +1,122 @@
+[
+  {
+    "id": "2603.04445",
+    "title": "Dynamic Model Routing and Cascading",
+    "group": "core",
+    "file": "/tmp/llmrouter-paper-notes-kit/pdfs/core-2603.04445-survey-dynamic-model-routing-and-cascading.pdf",
+    "bytes": 4224694,
+    "status": "ok"
+  },
+  {
+    "id": "2604.05164",
+    "title": "Turn-Adaptive Budgets",
+    "group": "core",
+    "file": "/tmp/llmrouter-paper-notes-kit/pdfs/core-2604.05164-tab-turn-adaptive-budgets.pdf",
+    "bytes": 1279319,
+    "status": "ok"
+  },
+  {
+    "id": "2604.23626",
+    "title": "GraphPlanner",
+    "group": "core",
+    "file": "/tmp/llmrouter-paper-notes-kit/pdfs/core-2604.23626-graphplanner.pdf",
+    "bytes": 1646160,
+    "status": "ok"
+  },
+  {
+    "id": "2604.08369",
+    "title": "TrACE",
+    "group": "core",
+    "file": "/tmp/llmrouter-paper-notes-kit/pdfs/core-2604.08369-trace-dont-overthink-it.pdf",
+    "bytes": 663030,
+    "status": "ok"
+  },
+  {
+    "id": "2605.00410",
+    "title": "Agent Capsules",
+    "group": "core",
+    "file": "/tmp/llmrouter-paper-notes-kit/pdfs/core-2605.00410-agent-capsules.pdf",
+    "bytes": 915473,
+    "status": "ok"
+  },
+  {
+    "id": "2406.18665",
+    "title": "RouteLLM",
+    "group": "foundation",
+    "file": "/tmp/llmrouter-paper-notes-kit/pdfs/foundation-2406.18665-routellm.pdf",
+    "bytes": 809166,
+    "status": "ok"
+  },
+  {
+    "id": "2310.12963",
+    "title": "AutoMix",
+    "group": "foundation",
+    "file": "/tmp/llmrouter-paper-notes-kit/pdfs/foundation-2310.12963-automix.pdf",
+    "bytes": 1390729,
+    "status": "ok"
+  },
+  {
+    "id": "2310.03046",
+    "title": "EcoAssistant",
+    "group": "foundation",
+    "file": "/tmp/llmrouter-paper-notes-kit/pdfs/foundation-2310.03046-ecoassistant.pdf",
+    "bytes": 4799035,
+    "status": "ok"
+  },
+  {
+    "id": "2305.05176",
+    "title": "FrugalGPT",
+    "group": "foundation",
+    "file": "/tmp/llmrouter-paper-notes-kit/pdfs/foundation-2305.05176-frugalgpt.pdf",
+    "bytes": 1171365,
+    "status": "ok"
+  },
+  {
+    "id": "2408.03314",
+    "title": "Test-time Compute",
+    "group": "foundation",
+    "file": "/tmp/llmrouter-paper-notes-kit/pdfs/foundation-2408.03314-test-time-compute.pdf",
+    "bytes": 3870997,
+    "status": "ok"
+  },
+  {
+    "id": "2501.19393",
+    "title": "s1",
+    "group": "foundation",
+    "file": "/tmp/llmrouter-paper-notes-kit/pdfs/foundation-2501.19393-s1.pdf",
+    "bytes": 1480533,
+    "status": "ok"
+  },
+  {
+    "id": "2403.12031",
+    "title": "RouterBench",
+    "group": "foundation",
+    "file": "/tmp/llmrouter-paper-notes-kit/pdfs/foundation-2403.12031-routerbench.pdf",
+    "bytes": 1878517,
+    "status": "ok"
+  },
+  {
+    "id": "2405.15130",
+    "title": "OptLLM",
+    "group": "foundation",
+    "file": "/tmp/llmrouter-paper-notes-kit/pdfs/foundation-2405.15130-optllm.pdf",
+    "bytes": 1101765,
+    "status": "ok"
+  },
+  {
+    "id": "2605.00180",
+    "title": "RouteProfile",
+    "group": "foundation",
+    "file": "/tmp/llmrouter-paper-notes-kit/pdfs/foundation-2605.00180-routeprofile.pdf",
+    "bytes": 2391113,
+    "status": "ok"
+  },
+  {
+    "id": "2506.01048",
+    "title": "IRT-Router",
+    "group": "foundation",
+    "file": "/tmp/llmrouter-paper-notes-kit/pdfs/foundation-2506.01048-irt-router.pdf",
+    "bytes": 1817298,
+    "status": "ok"
+  }
+]

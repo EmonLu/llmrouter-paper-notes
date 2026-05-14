@@ -1,9 +1,9 @@
 # 本地论文索引
 
-- 根目录: `/tmp/llmrouter-paper-notes-kit`
-- PDF 目录: `/tmp/llmrouter-paper-notes-kit/pdfs`
-- 总论文数: 15
-- 下载成功: 15
+- 根目录: `/home/jiehui/llmrouter/llmrouter-paper-notes`
+- PDF 目录: `/home/jiehui/llmrouter/llmrouter-paper-notes/pdfs`
+- 总论文数: 17
+- 下载成功: 17
 - 下载失败: 0
 
 | 分组 | arXiv ID | 标题 | 本地文件 | 大小(bytes) | 状态 |
@@ -23,3 +23,5 @@
 | foundation | 2405.15130 | OptLLM | `foundation-2405.15130-optllm.pdf` | 1101765 | ok |
 | foundation | 2605.00180 | RouteProfile | `foundation-2605.00180-routeprofile.pdf` | 2391113 | ok |
 | foundation | 2506.01048 | IRT-Router | `foundation-2506.01048-irt-router.pdf` | 1817298 | ok |
+| foundation | 2602.02823 | R2-Router: A New Paradigm for LLM Routing with Reasoning | `foundation-2602.02823-r2-router.pdf` | 1673495 | ok |
+| foundation | 2502.03261 | CARROT: A Cost Aware Rate Optimal Router | `foundation-2502.03261-carrot.pdf` | 1043799 | ok |

@@ -147,11 +147,30 @@ llmrouter-paper-notes/
 
 这样这个仓库最后沉淀出来的，不只是论文摘要，而是一套可以反哺系统实现的研究地图。
 
+## 自动化入口
+
+如果你以后想让我“给一篇 paper 就自动建档并生成对应 markdown 骨架”，现在仓库里已经有最小自动化入口：
+
+- 脚本：`auto_generate_paper_note.py`
+- 说明：`AUTOMATION.md`
+
+典型用法：
+
+`python3 auto_generate_paper_note.py /path/to/paper.pdf --copy`
+
+它会：
+- 把 PDF 纳入仓库
+- 生成对应 `papers/*.md` 骨架
+- 抽取 `pdftotext` 文本到 `.tmp_pdftext/`
+- 尽量同步更新 `papers-manifest.json`、`reading-queue.md`、`LOCAL_PDF_INDEX.md`
+
+然后再继续让我按高强度标准把这篇论文精读完整。
+
 ## 下一步
 
 当前最值得继续推进的事情：
 
 - 完善 survey 笔记中的 taxonomy 与代表方法表
-- 把其余 core paper 也预填成结构化骨架
 - 补一个总览页，把 paper 间关系画清楚
 - 开始从“paper reading”过渡到“router design spec”
+- 继续把自动化入口升级成“一步生成高质量初稿 + 自动跑 leftover scan”的完整流水线

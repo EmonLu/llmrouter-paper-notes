@@ -88,5 +88,21 @@
     "short": "irt-router",
     "id": "2506.01048",
     "title": "IRT-Router"
+  },
+  {
+    "group": "foundation",
+    "short": "r2-router",
+    "id": "2602.02823",
+    "title": "R2-Router"
+  },
+  {
+    "group": "foundation",
+    "short": "carrot",
+    "id": "2502.03261",
+    "title": "CARROT: A Cost Aware Rate Optimal Router",
+    "slug": "carrot-a-cost-aware-rate-optimal-router",
+    "pdf_path": "pdfs/foundation-2502.03261-carrot.pdf",
+    "note_path": "papers/2502.03261-carrot.md",
+    "paper_id": "2502.03261"
   }
 ]

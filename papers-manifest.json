@@ -1,6 +1,16 @@
 [
   {
     "group": "core",
+    "short": "routing-strategies-survey",
+    "id": "2502.00409",
+    "title": "Doing More with Less: A Survey on Routing Strategies for Resource Optimisation in Large Language Model-Based Systems",
+    "slug": "doing-more-with-less-routing-strategies-survey",
+    "pdf_path": "pdfs/core-2502.00409-routing-strategies-survey.pdf",
+    "note_path": "papers/2502.00409-routing-strategies-survey.md",
+    "paper_id": "2502.00409"
+  },
+  {
+    "group": "core",
     "short": "survey-dynamic-model-routing-and-cascading",
     "id": "2603.04445",
     "title": "Dynamic Model Routing and Cascading"
@@ -13,15 +23,15 @@
   },
   {
     "group": "core",
-    "short": "graphplanner",
-    "id": "2604.23626",
-    "title": "GraphPlanner"
-  },
-  {
-    "group": "core",
     "short": "trace-dont-overthink-it",
     "id": "2604.08369",
     "title": "TrACE"
+  },
+  {
+    "group": "core",
+    "short": "graphplanner",
+    "id": "2604.23626",
+    "title": "GraphPlanner"
   },
   {
     "group": "core",
@@ -30,22 +40,14 @@
     "title": "Agent Capsules"
   },
   {
-    "group": "foundation",
-    "short": "routellm",
-    "id": "2406.18665",
-    "title": "RouteLLM"
-  },
-  {
-    "group": "foundation",
-    "short": "automix",
-    "id": "2310.12963",
-    "title": "AutoMix"
-  },
-  {
-    "group": "foundation",
-    "short": "ecoassistant",
-    "id": "2310.03046",
-    "title": "EcoAssistant"
+    "group": "core",
+    "short": "multi-llm-inference-routing-and-hierarchical-techniques",
+    "id": "2506.06579",
+    "title": "Towards Efficient Multi-LLM Inference: Characterization and Analysis of LLM Routing and Hierarchical Techniques",
+    "slug": "towards-efficient-multi-llm-inference-routing-and-hierarchical-techniques",
+    "pdf_path": "pdfs/core-2506.06579-multi-llm-inference-routing-and-hierarchical-techniques.pdf",
+    "note_path": "papers/2506.06579-multi-llm-inference-routing-and-hierarchical-techniques.md",
+    "paper_id": "2506.06579"
   },
   {
     "group": "foundation",
@@ -55,15 +57,15 @@
   },
   {
     "group": "foundation",
-    "short": "test-time-compute",
-    "id": "2408.03314",
-    "title": "Test-time Compute"
+    "short": "ecoassistant",
+    "id": "2310.03046",
+    "title": "EcoAssistant"
   },
   {
     "group": "foundation",
-    "short": "s1",
-    "id": "2501.19393",
-    "title": "s1"
+    "short": "automix",
+    "id": "2310.12963",
+    "title": "AutoMix"
   },
   {
     "group": "foundation",
@@ -79,9 +81,31 @@
   },
   {
     "group": "foundation",
-    "short": "routeprofile",
-    "id": "2605.00180",
-    "title": "RouteProfile"
+    "short": "routellm",
+    "id": "2406.18665",
+    "title": "RouteLLM"
+  },
+  {
+    "group": "foundation",
+    "short": "test-time-compute",
+    "id": "2408.03314",
+    "title": "Test-time Compute"
+  },
+  {
+    "group": "foundation",
+    "short": "s1",
+    "id": "2501.19393",
+    "title": "s1"
+  },
+  {
+    "group": "foundation",
+    "short": "carrot",
+    "id": "2502.03261",
+    "title": "CARROT: A Cost Aware Rate Optimal Router",
+    "slug": "carrot-a-cost-aware-rate-optimal-router",
+    "pdf_path": "pdfs/foundation-2502.03261-carrot.pdf",
+    "note_path": "papers/2502.03261-carrot.md",
+    "paper_id": "2502.03261"
   },
   {
     "group": "foundation",
@@ -97,12 +121,8 @@
   },
   {
     "group": "foundation",
-    "short": "carrot",
-    "id": "2502.03261",
-    "title": "CARROT: A Cost Aware Rate Optimal Router",
-    "slug": "carrot-a-cost-aware-rate-optimal-router",
-    "pdf_path": "pdfs/foundation-2502.03261-carrot.pdf",
-    "note_path": "papers/2502.03261-carrot.md",
-    "paper_id": "2502.03261"
+    "short": "routeprofile",
+    "id": "2605.00180",
+    "title": "RouteProfile"
   }
 ]

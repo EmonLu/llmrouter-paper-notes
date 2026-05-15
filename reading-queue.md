@@ -7,6 +7,8 @@
 - [ ] GraphPlanner (2604.23626)
 - [ ] TrACE (2604.08369)
 - [ ] Agent Capsules (2605.00410)
+- [ ] Doing More with Less (2502.00409)
+- [ ] Towards Efficient Multi-LLM Inference (2506.06579)
 
 ## 基础补全（Foundation）
 

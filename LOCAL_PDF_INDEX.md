@@ -2,8 +2,8 @@
 
 - 根目录: `/home/jiehui/llmrouter/llmrouter-paper-notes`
 - PDF 目录: `/home/jiehui/llmrouter/llmrouter-paper-notes/pdfs`
-- 总论文数: 17
-- 下载成功: 17
+- 总论文数: 19
+- 下载成功: 19
 - 下载失败: 0
 
 | 分组 | arXiv ID | 标题 | 本地文件 | 大小(bytes) | 状态 |
@@ -13,6 +13,8 @@
 | core | 2604.23626 | GraphPlanner | `core-2604.23626-graphplanner.pdf` | 1646160 | ok |
 | core | 2604.08369 | TrACE | `core-2604.08369-trace-dont-overthink-it.pdf` | 663030 | ok |
 | core | 2605.00410 | Agent Capsules | `core-2605.00410-agent-capsules.pdf` | 915473 | ok |
+| core | 2502.00409 | Doing More with Less | `core-2502.00409-routing-strategies-survey.pdf` | 928574 | ok |
+| core | 2506.06579 | Towards Efficient Multi-LLM Inference | `core-2506.06579-multi-llm-inference-routing-and-hierarchical-techniques.pdf` | 633188 | ok |
 | foundation | 2406.18665 | RouteLLM | `foundation-2406.18665-routellm.pdf` | 809166 | ok |
 | foundation | 2310.12963 | AutoMix | `foundation-2310.12963-automix.pdf` | 1390729 | ok |
 | foundation | 2310.03046 | EcoAssistant | `foundation-2310.03046-ecoassistant.pdf` | 4799035 | ok |

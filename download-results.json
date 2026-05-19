@@ -10,32 +10,32 @@
   {
     "id": "2604.05164",
     "title": "Turn-Adaptive Budgets",
-    "group": "core",
-    "file": "/tmp/llmrouter-paper-notes-kit/pdfs/core-2604.05164-tab-turn-adaptive-budgets.pdf",
+    "group": "agentic",
+    "file": "/tmp/llmrouter-paper-notes-kit/pdfs/agentic-2604.05164-tab-turn-adaptive-budgets.pdf",
     "bytes": 1279319,
     "status": "ok"
   },
   {
     "id": "2604.23626",
     "title": "GraphPlanner",
-    "group": "core",
-    "file": "/tmp/llmrouter-paper-notes-kit/pdfs/core-2604.23626-graphplanner.pdf",
+    "group": "agentic",
+    "file": "/tmp/llmrouter-paper-notes-kit/pdfs/agentic-2604.23626-graphplanner.pdf",
     "bytes": 1646160,
     "status": "ok"
   },
   {
     "id": "2604.08369",
     "title": "TrACE",
-    "group": "core",
-    "file": "/tmp/llmrouter-paper-notes-kit/pdfs/core-2604.08369-trace-dont-overthink-it.pdf",
+    "group": "agentic",
+    "file": "/tmp/llmrouter-paper-notes-kit/pdfs/agentic-2604.08369-trace-dont-overthink-it.pdf",
     "bytes": 663030,
     "status": "ok"
   },
   {
     "id": "2605.00410",
     "title": "Agent Capsules",
-    "group": "core",
-    "file": "/tmp/llmrouter-paper-notes-kit/pdfs/core-2605.00410-agent-capsules.pdf",
+    "group": "agentic",
+    "file": "/tmp/llmrouter-paper-notes-kit/pdfs/agentic-2605.00410-agent-capsules.pdf",
     "bytes": 915473,
     "status": "ok"
   },
@@ -58,8 +58,8 @@
   {
     "id": "2310.03046",
     "title": "EcoAssistant",
-    "group": "foundation",
-    "file": "/tmp/llmrouter-paper-notes-kit/pdfs/foundation-2310.03046-ecoassistant.pdf",
+    "group": "agentic",
+    "file": "/tmp/llmrouter-paper-notes-kit/pdfs/agentic-2310.03046-ecoassistant.pdf",
     "bytes": 4799035,
     "status": "ok"
   },
@@ -74,16 +74,16 @@
   {
     "id": "2408.03314",
     "title": "Test-time Compute",
-    "group": "foundation",
-    "file": "/tmp/llmrouter-paper-notes-kit/pdfs/foundation-2408.03314-test-time-compute.pdf",
+    "group": "agentic",
+    "file": "/tmp/llmrouter-paper-notes-kit/pdfs/agentic-2408.03314-test-time-compute.pdf",
     "bytes": 3870997,
     "status": "ok"
   },
   {
     "id": "2501.19393",
     "title": "s1",
-    "group": "foundation",
-    "file": "/tmp/llmrouter-paper-notes-kit/pdfs/foundation-2501.19393-s1.pdf",
+    "group": "agentic",
+    "file": "/tmp/llmrouter-paper-notes-kit/pdfs/agentic-2501.19393-s1.pdf",
     "bytes": 1480533,
     "status": "ok"
   },

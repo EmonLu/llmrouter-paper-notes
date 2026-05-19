@@ -16,28 +16,54 @@
     "title": "Dynamic Model Routing and Cascading"
   },
   {
-    "group": "core",
+    "group": "agentic",
     "short": "tab-turn-adaptive-budgets",
     "id": "2604.05164",
-    "title": "Turn-Adaptive Budgets"
+    "title": "Turn-Adaptive Budgets",
+    "slug": "tab-turn-adaptive-budgets",
+    "paper_id": "2604.05164",
+    "pdf_path": "pdfs/agentic-2604.05164-tab-turn-adaptive-budgets.pdf",
+    "note_path": "papers/2604.05164-tab-turn-adaptive-budgets.md"
   },
   {
-    "group": "core",
+    "group": "agentic",
     "short": "trace-dont-overthink-it",
     "id": "2604.08369",
-    "title": "TrACE"
+    "title": "TrACE",
+    "slug": "trace-dont-overthink-it",
+    "paper_id": "2604.08369",
+    "pdf_path": "pdfs/agentic-2604.08369-trace-dont-overthink-it.pdf",
+    "note_path": "papers/2604.08369-trace-dont-overthink-it.md"
   },
   {
-    "group": "core",
+    "group": "agentic",
     "short": "graphplanner",
     "id": "2604.23626",
-    "title": "GraphPlanner"
+    "title": "GraphPlanner",
+    "slug": "graphplanner",
+    "paper_id": "2604.23626",
+    "pdf_path": "pdfs/agentic-2604.23626-graphplanner.pdf",
+    "note_path": "papers/2604.23626-graphplanner.md"
   },
   {
-    "group": "core",
+    "group": "agentic",
+    "short": "agent-design-mechanism",
+    "id": "2604.14228",
+    "title": "Dive into Claude Code: The Design Space of Today’s and Future AI Agent Systems",
+    "slug": "agent-design-mechanism",
+    "pdf_path": "pdfs/agentic-2604.14228-agent-design-mechanism.pdf",
+    "note_path": "papers/2604.14228-agent-design-mechanism.md",
+    "paper_id": "2604.14228"
+  },
+  {
+    "group": "agentic",
     "short": "agent-capsules",
     "id": "2605.00410",
-    "title": "Agent Capsules"
+    "title": "Agent Capsules",
+    "slug": "agent-capsules",
+    "paper_id": "2605.00410",
+    "pdf_path": "pdfs/agentic-2605.00410-agent-capsules.pdf",
+    "note_path": "papers/2605.00410-agent-capsules.md"
   },
   {
     "group": "core",
@@ -56,10 +82,14 @@
     "title": "FrugalGPT"
   },
   {
-    "group": "foundation",
+    "group": "agentic",
     "short": "ecoassistant",
     "id": "2310.03046",
-    "title": "EcoAssistant"
+    "title": "EcoAssistant",
+    "slug": "ecoassistant",
+    "paper_id": "2310.03046",
+    "pdf_path": "pdfs/agentic-2310.03046-ecoassistant.pdf",
+    "note_path": "papers/2310.03046-ecoassistant.md"
   },
   {
     "group": "foundation",
@@ -86,16 +116,24 @@
     "title": "RouteLLM"
   },
   {
-    "group": "foundation",
+    "group": "agentic",
     "short": "test-time-compute",
     "id": "2408.03314",
-    "title": "Test-time Compute"
+    "title": "Test-time Compute",
+    "slug": "test-time-compute",
+    "paper_id": "2408.03314",
+    "pdf_path": "pdfs/agentic-2408.03314-test-time-compute.pdf",
+    "note_path": "papers/2408.03314-test-time-compute.md"
   },
   {
-    "group": "foundation",
+    "group": "agentic",
     "short": "s1",
     "id": "2501.19393",
-    "title": "s1"
+    "title": "s1",
+    "slug": "s1",
+    "paper_id": "2501.19393",
+    "pdf_path": "pdfs/agentic-2501.19393-s1.pdf",
+    "note_path": "papers/2501.19393-s1.md"
   },
   {
     "group": "foundation",

@@ -217,7 +217,14 @@ Track B 不是问“给这个 query 选哪个模型”，而是问：
 
 ## 4.2 Track B 的核心论文分组
 
-### A. 最接近系统本体：workflow / runtime routing
+### A. Runtime architecture / workflow / granularity
+
+#### 2604.14228 — Dive into Claude Code
+- 文件：`2604.14228-agent-design-mechanism.md`
+- 角色：runtime control plane substrate
+- 为什么重要：
+  - 它定义的不是某个局部 policy，而是 coding agent 底座怎么搭
+  - 对 permission、compaction、session persistence、subagent delegation 特别关键
 
 #### 2604.23626 — GraphPlanner
 - 文件：`2604.23626-graphplanner.md`
@@ -232,6 +239,8 @@ Track B 不是问“给这个 query 选哪个模型”，而是问：
 - 为什么重要：
   - 对 SWE-bench 很关键，因为 coding agent 经常会遇到：到底是一步一步拆开执行，还是合并多个子步骤一起做
   - 它给了你 granularity routing 的直接设计灵感
+
+- 相关总览：`papers/AGENTIC_COMPARISON.md`
 
 ### B. 在线 budget / compute controller
 

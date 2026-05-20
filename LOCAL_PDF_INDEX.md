@@ -2,8 +2,8 @@
 
 - 根目录: `/home/jiehui/llmrouter/llmrouter-paper-notes`
 - PDF 目录: `/home/jiehui/llmrouter/llmrouter-paper-notes/pdfs`
-- 总论文数: 20
-- 下载成功: 20
+- 总论文数: 21
+- 下载成功: 21
 - 下载失败: 0
 
 | 分组 | arXiv ID | 标题 | 本地文件 | 大小(bytes) | 状态 |
@@ -28,3 +28,4 @@
 | foundation | 2506.01048 | IRT-Router | `foundation-2506.01048-irt-router.pdf` | 1817298 | ok |
 | foundation | 2602.02823 | R2-Router | `foundation-2602.02823-r2-router.pdf` | 1673495 | ok |
 | foundation | 2605.00180 | RouteProfile | `foundation-2605.00180-routeprofile.pdf` | 2391113 | ok |
+| foundation | 2510.00202 | RouterArena: An Open Platform for Comprehensive Comparison of LLM Routers | `foundation-2510.00202-routerarena.pdf` | 2777520 | ok |

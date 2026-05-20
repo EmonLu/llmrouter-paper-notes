@@ -28,6 +28,7 @@
 - [ ] IRT-Router (2506.01048)
 - [ ] R2-Router (2602.02823)
 - [ ] CARROT (2502.03261)
+- [ ] RouterArena: An Open Platform for Comprehensive Comparison of LLM Routers (2510.00202)
 
 ## 已读
 

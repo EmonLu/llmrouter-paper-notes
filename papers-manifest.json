@@ -162,5 +162,15 @@
     "short": "routeprofile",
     "id": "2605.00180",
     "title": "RouteProfile"
+  },
+  {
+    "group": "foundation",
+    "short": "routerarena",
+    "id": "2510.00202",
+    "title": "RouterArena: An Open Platform for Comprehensive Comparison of LLM Routers",
+    "slug": "routerarena",
+    "paper_id": "2510.00202",
+    "pdf_path": "pdfs/foundation-2510.00202-routerarena.pdf",
+    "note_path": "papers/2510.00202-routerarena.md"
   }
 ]

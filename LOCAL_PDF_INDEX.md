@@ -2,8 +2,8 @@
 
 - 根目录: `/home/jiehui/llmrouter/llmrouter-paper-notes`
 - PDF 目录: `/home/jiehui/llmrouter/llmrouter-paper-notes/pdfs`
-- 总论文数: 21
-- 下载成功: 21
+- 总论文数: 23
+- 下载成功: 23
 - 下载失败: 0
 
 | 分组 | arXiv ID | 标题 | 本地文件 | 大小(bytes) | 状态 |
@@ -15,6 +15,8 @@
 | agentic | 2604.23626 | GraphPlanner | `agentic-2604.23626-graphplanner.pdf` | 1646160 | ok |
 | agentic | 2604.14228 | Dive into Claude Code: The Design Space of Today’s and Future AI Agent Systems | `agentic-2604.14228-agent-design-mechanism.pdf` | 1390792 | ok |
 | agentic | 2605.00410 | Agent Capsules | `agentic-2605.00410-agent-capsules.pdf` | 915473 | ok |
+| agentic | 2605.16637 | HexAGenT: Efficient Agentic LLM Serving via Workflow- and Heterogeneity-Aware Scheduling | `agentic-2605.16637-hexagent.pdf` | 806760 | ok |
+| agentic | 2605.18859 | TwinRouterBench: Fast Static and Live Dynamic Evaluation for Realistic Agentic LLM Routing | `agentic-2605.18859-twinrouterbench.pdf` | 615023 | ok |
 | core | 2506.06579 | Towards Efficient Multi-LLM Inference: Characterization and Analysis of LLM Routing and Hierarchical Techniques | `core-2506.06579-multi-llm-inference-routing-and-hierarchical-techniques.pdf` | 633188 | ok |
 | foundation | 2305.05176 | FrugalGPT | `foundation-2305.05176-frugalgpt.pdf` | 1171365 | ok |
 | agentic | 2310.03046 | EcoAssistant | `agentic-2310.03046-ecoassistant.pdf` | 4799035 | ok |

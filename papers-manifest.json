@@ -66,6 +66,26 @@
     "note_path": "papers/2605.00410-agent-capsules.md"
   },
   {
+    "group": "agentic",
+    "short": "hexagent",
+    "id": "2605.16637",
+    "title": "HexAGenT: Efficient Agentic LLM Serving via Workflow- and Heterogeneity-Aware Scheduling",
+    "slug": "hexagent",
+    "paper_id": "2605.16637",
+    "pdf_path": "pdfs/agentic-2605.16637-hexagent.pdf",
+    "note_path": "papers/2605.16637-hexagent.md"
+  },
+  {
+    "group": "agentic",
+    "short": "twinrouterbench",
+    "id": "2605.18859",
+    "title": "TwinRouterBench: Fast Static and Live Dynamic Evaluation for Realistic Agentic LLM Routing",
+    "slug": "twinrouterbench",
+    "paper_id": "2605.18859",
+    "pdf_path": "pdfs/agentic-2605.18859-twinrouterbench.pdf",
+    "note_path": "papers/2605.18859-twinrouterbench.md"
+  },
+  {
     "group": "core",
     "short": "multi-llm-inference-routing-and-hierarchical-techniques",
     "id": "2506.06579",

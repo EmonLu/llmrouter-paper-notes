@@ -13,6 +13,8 @@
 - [ ] GraphPlanner (2604.23626)
 - [ ] TrACE (2604.08369)
 - [ ] Agent Capsules (2605.00410)
+- [ ] HexAGenT (2605.16637)
+- [ ] TwinRouterBench (2605.18859)
 - [ ] EcoAssistant (2310.03046)
 - [ ] Test-time Compute (2408.03314)
 - [ ] s1 (2501.19393)

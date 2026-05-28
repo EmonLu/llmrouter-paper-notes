@@ -2,121 +2,151 @@
   {
     "id": "2603.04445",
     "title": "Dynamic Model Routing and Cascading",
-    "group": "core",
-    "file": "/tmp/llmrouter-paper-notes-kit/pdfs/core-2603.04445-survey-dynamic-model-routing-and-cascading.pdf",
+    "group": "general",
+    "file": "/tmp/llmrouter-paper-notes-kit/pdfs/general-single-turn-survey-2603.04445-survey-dynamic-model-routing-and-cascading.pdf",
     "bytes": 4224694,
-    "status": "ok"
+    "status": "ok",
+    "interaction": "single-turn",
+    "artifact_type": "survey"
   },
   {
     "id": "2604.05164",
     "title": "Turn-Adaptive Budgets",
-    "group": "agentic",
-    "file": "/tmp/llmrouter-paper-notes-kit/pdfs/agentic-2604.05164-tab-turn-adaptive-budgets.pdf",
+    "group": "general",
+    "file": "/tmp/llmrouter-paper-notes-kit/pdfs/general-multi-turn-method-2604.05164-tab-turn-adaptive-budgets.pdf",
     "bytes": 1279319,
-    "status": "ok"
+    "status": "ok",
+    "interaction": "multi-turn",
+    "artifact_type": "method"
   },
   {
     "id": "2604.23626",
     "title": "GraphPlanner",
-    "group": "agentic",
-    "file": "/tmp/llmrouter-paper-notes-kit/pdfs/agentic-2604.23626-graphplanner.pdf",
+    "group": "general",
+    "file": "/tmp/llmrouter-paper-notes-kit/pdfs/general-multi-turn-method-2604.23626-graphplanner.pdf",
     "bytes": 1646160,
-    "status": "ok"
+    "status": "ok",
+    "interaction": "multi-turn",
+    "artifact_type": "method"
   },
   {
     "id": "2604.08369",
     "title": "TrACE",
-    "group": "agentic",
-    "file": "/tmp/llmrouter-paper-notes-kit/pdfs/agentic-2604.08369-trace-dont-overthink-it.pdf",
+    "group": "general",
+    "file": "/tmp/llmrouter-paper-notes-kit/pdfs/general-multi-turn-method-2604.08369-trace-dont-overthink-it.pdf",
     "bytes": 663030,
-    "status": "ok"
+    "status": "ok",
+    "interaction": "multi-turn",
+    "artifact_type": "method"
   },
   {
     "id": "2605.00410",
     "title": "Agent Capsules",
-    "group": "agentic",
-    "file": "/tmp/llmrouter-paper-notes-kit/pdfs/agentic-2605.00410-agent-capsules.pdf",
+    "group": "general",
+    "file": "/tmp/llmrouter-paper-notes-kit/pdfs/general-multi-turn-method-2605.00410-agent-capsules.pdf",
     "bytes": 915473,
-    "status": "ok"
+    "status": "ok",
+    "interaction": "multi-turn",
+    "artifact_type": "method"
   },
   {
     "id": "2406.18665",
     "title": "RouteLLM",
-    "group": "foundation",
-    "file": "/tmp/llmrouter-paper-notes-kit/pdfs/foundation-2406.18665-routellm.pdf",
+    "group": "general",
+    "file": "/tmp/llmrouter-paper-notes-kit/pdfs/general-single-turn-method-2406.18665-routellm.pdf",
     "bytes": 809166,
-    "status": "ok"
+    "status": "ok",
+    "interaction": "single-turn",
+    "artifact_type": "method"
   },
   {
     "id": "2310.12963",
     "title": "AutoMix",
-    "group": "foundation",
-    "file": "/tmp/llmrouter-paper-notes-kit/pdfs/foundation-2310.12963-automix.pdf",
+    "group": "general",
+    "file": "/tmp/llmrouter-paper-notes-kit/pdfs/general-single-turn-method-2310.12963-automix.pdf",
     "bytes": 1390729,
-    "status": "ok"
+    "status": "ok",
+    "interaction": "single-turn",
+    "artifact_type": "method"
   },
   {
     "id": "2310.03046",
     "title": "EcoAssistant",
-    "group": "agentic",
-    "file": "/tmp/llmrouter-paper-notes-kit/pdfs/agentic-2310.03046-ecoassistant.pdf",
+    "group": "general",
+    "file": "/tmp/llmrouter-paper-notes-kit/pdfs/general-multi-turn-method-2310.03046-ecoassistant.pdf",
     "bytes": 4799035,
-    "status": "ok"
+    "status": "ok",
+    "interaction": "multi-turn",
+    "artifact_type": "method"
   },
   {
     "id": "2305.05176",
     "title": "FrugalGPT",
-    "group": "foundation",
-    "file": "/tmp/llmrouter-paper-notes-kit/pdfs/foundation-2305.05176-frugalgpt.pdf",
+    "group": "general",
+    "file": "/tmp/llmrouter-paper-notes-kit/pdfs/general-single-turn-method-2305.05176-frugalgpt.pdf",
     "bytes": 1171365,
-    "status": "ok"
+    "status": "ok",
+    "interaction": "single-turn",
+    "artifact_type": "method"
   },
   {
     "id": "2408.03314",
     "title": "Test-time Compute",
-    "group": "agentic",
-    "file": "/tmp/llmrouter-paper-notes-kit/pdfs/agentic-2408.03314-test-time-compute.pdf",
+    "group": "general",
+    "file": "/tmp/llmrouter-paper-notes-kit/pdfs/general-single-turn-method-2408.03314-test-time-compute.pdf",
     "bytes": 3870997,
-    "status": "ok"
+    "status": "ok",
+    "interaction": "single-turn",
+    "artifact_type": "method"
   },
   {
     "id": "2501.19393",
     "title": "s1",
-    "group": "agentic",
-    "file": "/tmp/llmrouter-paper-notes-kit/pdfs/agentic-2501.19393-s1.pdf",
+    "group": "general",
+    "file": "/tmp/llmrouter-paper-notes-kit/pdfs/general-single-turn-method-2501.19393-s1.pdf",
     "bytes": 1480533,
-    "status": "ok"
+    "status": "ok",
+    "interaction": "single-turn",
+    "artifact_type": "method"
   },
   {
     "id": "2403.12031",
     "title": "RouterBench",
-    "group": "foundation",
-    "file": "/tmp/llmrouter-paper-notes-kit/pdfs/foundation-2403.12031-routerbench.pdf",
+    "group": "general",
+    "file": "/tmp/llmrouter-paper-notes-kit/pdfs/general-single-turn-benchmark-2403.12031-routerbench.pdf",
     "bytes": 1878517,
-    "status": "ok"
+    "status": "ok",
+    "interaction": "single-turn",
+    "artifact_type": "benchmark"
   },
   {
     "id": "2405.15130",
     "title": "OptLLM",
-    "group": "foundation",
-    "file": "/tmp/llmrouter-paper-notes-kit/pdfs/foundation-2405.15130-optllm.pdf",
+    "group": "general",
+    "file": "/tmp/llmrouter-paper-notes-kit/pdfs/general-single-turn-method-2405.15130-optllm.pdf",
     "bytes": 1101765,
-    "status": "ok"
+    "status": "ok",
+    "interaction": "single-turn",
+    "artifact_type": "method"
   },
   {
     "id": "2605.00180",
     "title": "RouteProfile",
-    "group": "foundation",
-    "file": "/tmp/llmrouter-paper-notes-kit/pdfs/foundation-2605.00180-routeprofile.pdf",
+    "group": "general",
+    "file": "/tmp/llmrouter-paper-notes-kit/pdfs/general-single-turn-method-2605.00180-routeprofile.pdf",
     "bytes": 2391113,
-    "status": "ok"
+    "status": "ok",
+    "interaction": "single-turn",
+    "artifact_type": "method"
   },
   {
     "id": "2506.01048",
     "title": "IRT-Router",
-    "group": "foundation",
-    "file": "/tmp/llmrouter-paper-notes-kit/pdfs/foundation-2506.01048-irt-router.pdf",
+    "group": "general",
+    "file": "/tmp/llmrouter-paper-notes-kit/pdfs/general-single-turn-method-2506.01048-irt-router.pdf",
     "bytes": 1817298,
-    "status": "ok"
+    "status": "ok",
+    "interaction": "single-turn",
+    "artifact_type": "method"
   }
 ]

@@ -3,7 +3,7 @@
 这份文档的目的，不是重复 survey 摘要，而是把那篇综述里最关键的六种 routing 范式，压缩成一份更适合系统设计和后续实现决策的速查表。
 
 对应 survey：
-- `papers/2603.04445-survey-dynamic-model-routing-and-cascading.md`
+- `papers/general-single-turn-survey-2603.04445-survey-dynamic-model-routing-and-cascading.md`
 - 原始六类范式：
   1. difficulty-aware
   2. preference-aligned

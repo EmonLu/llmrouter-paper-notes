@@ -378,10 +378,10 @@
   - 不只管 LLM，还管 prompt、retrieval、workflow、context strategy
 
 ### 11.7 和仓库中其他论文的关系
-- 和 `2603.04445-survey-dynamic-model-routing-and-cascading.md` 对照：
+- 和 `general-single-turn-survey-2603.04445-survey-dynamic-model-routing-and-cascading.md` 对照：
   - 那篇更像领域地图，强调六种 routing paradigm 和 `when / what / how` 三轴
   - 这篇更像系统设计 review，强调 objective、timing、implementation 和 industrial considerations
-- 和 `2506.06579-multi-llm-inference-routing-and-hierarchical-techniques.md` 对照：
+- 和 `general-single-turn-survey-2506.06579-multi-llm-inference-routing-and-hierarchical-techniques.md` 对照：
   - `2502.00409` 更强在把 routing 拆成 system-design questions，并明确 baseline/benchmark 标准化问题
   - `2506.06579` 更强在 deployment constraints，尤其是 memory、energy、edge/cloud、distributed inference
   - 两篇并排读时，一个更像“控制面设计图”，一个更像“部署环境约束图”

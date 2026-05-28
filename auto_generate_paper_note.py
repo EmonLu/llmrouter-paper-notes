@@ -6,7 +6,10 @@ import re
 import shutil
 import subprocess
 import sys
+import tempfile
 from pathlib import Path
+from urllib.parse import urlparse
+from urllib.request import urlretrieve
 
 REPO_ROOT = Path(__file__).resolve().parent
 PDF_DIR = REPO_ROOT / 'pdfs'
@@ -29,17 +32,49 @@ def slugify(text: str) -> str:
 
 
 def extract_arxiv_id(name: str) -> str | None:
-    m = re.search(r'(\d{4}\.\d{4,5})', name)
+    m = re.search(r'(\d{4}\.\d{4,5})(?:v\d+)?', name)
     return m.group(1) if m else None
 
 
+def is_url(value: str) -> bool:
+    parsed = urlparse(value)
+    return parsed.scheme in {'http', 'https'} and bool(parsed.netloc)
+
+
+def normalize_arxiv_url(value: str) -> str:
+    parsed = urlparse(value)
+    if parsed.netloc not in {'arxiv.org', 'www.arxiv.org'}:
+        return value
+    paper_id = extract_arxiv_id(value)
+    if not paper_id:
+        return value
+    return f'https://arxiv.org/pdf/{paper_id}.pdf'
+
+
+def download_pdf(url: str) -> Path:
+    normalized_url = normalize_arxiv_url(url)
+    suffix = f"-{extract_arxiv_id(normalized_url)}.pdf" if extract_arxiv_id(normalized_url) else '.pdf'
+    fd, tmp_path = tempfile.mkstemp(prefix='auto_generate_paper_note-', suffix=suffix)
+    os.close(fd)
+    tmp_file = Path(tmp_path)
+    try:
+        urlretrieve(normalized_url, tmp_file)
+    except Exception:
+        if tmp_file.exists():
+            tmp_file.unlink()
+        raise
+    return tmp_file
+
+
 def parse_args():
-    p = argparse.ArgumentParser(description='根据本地 PDF 生成论文精读 markdown 骨架与提取文本')
-    p.add_argument('pdf', help='PDF 路径，可以是绝对路径，也可以是相对仓库根目录')
+    p = argparse.ArgumentParser(description='根据本地 PDF 或 arXiv 链接生成论文精读 markdown 骨架与提取文本')
+    p.add_argument('pdf', help='PDF 路径，或 arXiv abs/pdf 链接')
     p.add_argument('--title', help='手动指定论文标题')
     p.add_argument('--slug', help='手动指定 slug')
     p.add_argument('--paper-id', help='手动指定 arXiv id / paper id')
-    p.add_argument('--category', default='foundation', help='PDF 目标分类前缀，默认 foundation')
+    p.add_argument('--scope', default='general', choices=['general', 'coding-agentic', 'multimodal'], help='任务类别前缀')
+    p.add_argument('--turn-type', default='single-turn', choices=['single-turn', 'multi-turn'], help='单轮还是多轮')
+    p.add_argument('--artifact-type', default='method', choices=['method', 'dataset', 'benchmark', 'survey', 'repo'], help='论文/资料类型')
     p.add_argument('--copy', action='store_true', help='把 PDF 复制进仓库 pdfs/ 目录')
     return p.parse_args()
 
@@ -59,13 +94,17 @@ def write_text(path: Path, content: str):
 
 
 def find_existing_note_by_id(paper_id: str) -> Path | None:
-    matches = sorted(PAPERS_DIR.glob(f'{paper_id}-*.md'))
+    matches = sorted(PAPERS_DIR.glob(f'*-{paper_id}-*.md'))
     return matches[0] if matches else None
 
 
-def maybe_copy_pdf(src: Path, paper_id: str | None, slug: str, category: str) -> Path:
+def build_prefix(scope: str, turn_type: str, artifact_type: str) -> str:
+    return f'{scope}-{turn_type}-{artifact_type}'
+
+
+def maybe_copy_pdf(src: Path, paper_id: str | None, slug: str, prefix: str) -> Path:
     if paper_id:
-        dst_name = f'{category}-{paper_id}-{slug}.pdf'
+        dst_name = f'{prefix}-{paper_id}-{slug}.pdf'
     else:
         dst_name = src.name
     dst = PDF_DIR / dst_name
@@ -264,7 +303,7 @@ def build_note(title: str, paper_id: str, slug: str, pdf_path: Path, txt_path: P
 '''
 
 
-def update_manifest(paper_id: str, title: str, slug: str, pdf_rel: str, md_rel: str):
+def update_manifest(paper_id: str, title: str, slug: str, pdf_rel: str, md_rel: str, scope: str, turn_type: str, artifact_type: str):
     if not MANIFEST.exists():
         return
     data = json.loads(read_text(MANIFEST) or '[]')
@@ -276,6 +315,10 @@ def update_manifest(paper_id: str, title: str, slug: str, pdf_rel: str, md_rel: 
             item['pdf_path'] = pdf_rel
             item['note_path'] = md_rel
             item['paper_id'] = paper_id
+            item['group'] = scope
+            item['interaction'] = turn_type
+            item['artifact_type'] = artifact_type
+            item['filename_prefix'] = build_prefix(scope, turn_type, artifact_type)
             found = True
             break
     if not found:
@@ -285,6 +328,10 @@ def update_manifest(paper_id: str, title: str, slug: str, pdf_rel: str, md_rel: 
             'slug': slug,
             'pdf_path': pdf_rel,
             'note_path': md_rel,
+            'group': scope,
+            'interaction': turn_type,
+            'artifact_type': artifact_type,
+            'filename_prefix': build_prefix(scope, turn_type, artifact_type),
         })
     write_text(MANIFEST, json.dumps(data, ensure_ascii=False, indent=2) + '\n')
 
@@ -307,52 +354,63 @@ def main():
     args = parse_args()
     ensure_dirs()
 
-    pdf_input = Path(args.pdf)
-    if not pdf_input.is_absolute():
-        pdf_input = (REPO_ROOT / pdf_input).resolve()
+    cleanup_pdf = False
+    if is_url(args.pdf):
+        pdf_input = download_pdf(args.pdf)
+        cleanup_pdf = True
+    else:
+        pdf_input = Path(args.pdf)
+        if not pdf_input.is_absolute():
+            pdf_input = (REPO_ROOT / pdf_input).resolve()
     if not pdf_input.exists():
         print(f'PDF 不存在: {pdf_input}', file=sys.stderr)
         sys.exit(1)
 
-    paper_id = args.paper_id or extract_arxiv_id(pdf_input.name) or ''
+    try:
+        paper_id = args.paper_id or extract_arxiv_id(args.pdf) or extract_arxiv_id(pdf_input.name) or ''
 
-    tmp_probe = TMP_DIR / '__probe__.txt'
-    run(['pdftotext', '-f', '1', '-l', '2', '-layout', str(pdf_input), str(tmp_probe)])
-    first_pages = read_text(tmp_probe)
-    if tmp_probe.exists():
-        tmp_probe.unlink()
+        tmp_probe = TMP_DIR / '__probe__.txt'
+        run(['pdftotext', '-f', '1', '-l', '2', '-layout', str(pdf_input), str(tmp_probe)])
+        first_pages = read_text(tmp_probe)
+        if tmp_probe.exists():
+            tmp_probe.unlink()
 
-    title = args.title or infer_title_from_text(first_pages)
-    slug = args.slug or slugify(title)
+        title = args.title or infer_title_from_text(first_pages)
+        slug = args.slug or slugify(title)
 
-    pdf_path = maybe_copy_pdf(pdf_input, paper_id or None, slug, args.category) if args.copy else pdf_input
-    stem = f'{paper_id}-{slug}' if paper_id else slug
-    txt_path = extract_pdf_text(pdf_path, stem)
+        prefix = build_prefix(args.scope, args.turn_type, args.artifact_type)
+        pdf_path = maybe_copy_pdf(pdf_input, paper_id or None, slug, prefix) if args.copy else pdf_input
+        stem = f'{prefix}-{paper_id}-{slug}' if paper_id else f'{prefix}-{slug}'
+        txt_path = extract_pdf_text(pdf_path, stem)
 
-    existing_note = find_existing_note_by_id(paper_id) if paper_id else None
-    note_name = existing_note.name if existing_note else (f'{paper_id}-{slug}.md' if paper_id else f'{slug}.md')
-    note_path = existing_note if existing_note else (PAPERS_DIR / note_name)
-    if not note_path.exists():
-        write_text(note_path, build_note(title, paper_id, slug, pdf_path, txt_path))
+        existing_note = find_existing_note_by_id(paper_id) if paper_id else None
+        note_name = existing_note.name if existing_note else (f'{prefix}-{paper_id}-{slug}.md' if paper_id else f'{prefix}-{slug}.md')
+        note_path = existing_note if existing_note else (PAPERS_DIR / note_name)
+        if not note_path.exists():
+            write_text(note_path, build_note(title, paper_id, slug, pdf_path, txt_path))
 
-    pdf_rel = str(pdf_path.relative_to(REPO_ROOT)) if pdf_path.is_relative_to(REPO_ROOT) else str(pdf_path)
-    md_rel = str(note_path.relative_to(REPO_ROOT))
+        pdf_rel = str(pdf_path.relative_to(REPO_ROOT)) if pdf_path.is_relative_to(REPO_ROOT) else str(pdf_path)
+        md_rel = str(note_path.relative_to(REPO_ROOT))
 
-    if paper_id:
-        update_manifest(paper_id, title, slug, pdf_rel, md_rel)
-        append_if_missing(READING_QUEUE, f'({paper_id})', f'- [ ] {title} ({paper_id})')
-        append_row_if_missing(LOCAL_INDEX, f'| {paper_id} |', f'| {paper_id} | {title} | `{pdf_rel}` |')
+        if paper_id:
+            update_manifest(paper_id, title, slug, pdf_rel, md_rel, args.scope, args.turn_type, args.artifact_type)
+            append_if_missing(READING_QUEUE, f'({paper_id})', f'- [ ] {title} ({paper_id})')
+            file_size = pdf_path.stat().st_size if pdf_path.exists() else 0
+            append_row_if_missing(LOCAL_INDEX, f'| {args.scope} | {args.turn_type} | {args.artifact_type} | {paper_id} |', f'| {args.scope} | {args.turn_type} | {args.artifact_type} | {paper_id} | {title} | `{Path(pdf_rel).name}` | {file_size} | ok |')
 
-    result = {
-        'title': title,
-        'paper_id': paper_id,
-        'slug': slug,
-        'pdf_path': pdf_rel,
-        'text_path': str(txt_path.relative_to(REPO_ROOT)),
-        'note_path': md_rel,
-        'next_step': f'让 Hermes 基于 {md_rel} + {txt_path.relative_to(REPO_ROOT)} 做高强度精读并清理待补字段'
-    }
-    print(json.dumps(result, ensure_ascii=False, indent=2))
+        result = {
+            'title': title,
+            'paper_id': paper_id,
+            'slug': slug,
+            'pdf_path': pdf_rel,
+            'text_path': str(txt_path.relative_to(REPO_ROOT)),
+            'note_path': md_rel,
+            'next_step': f'让 Hermes 基于 {md_rel} + {txt_path.relative_to(REPO_ROOT)} 做高强度精读并清理待补字段'
+        }
+        print(json.dumps(result, ensure_ascii=False, indent=2))
+    finally:
+        if cleanup_pdf and pdf_input.exists() and not pdf_input.is_relative_to(REPO_ROOT):
+            pdf_input.unlink()
 
 
 if __name__ == '__main__':

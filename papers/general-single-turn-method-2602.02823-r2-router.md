@@ -8,7 +8,7 @@
 - 发表时间：2026-02-02（arXiv v1）
 - 会议 / 期刊：arXiv preprint
 - 论文链接：https://arxiv.org/abs/2602.02823
-- PDF 路径：../pdfs/foundation-2602.02823-r2-router.pdf
+- PDF 路径：../pdfs/general-single-turn-method-2602.02823-r2-router.pdf
 - 代码链接：正文未明确给出，需要后续核实
 - 研究方向关键词：
   - `LLM Routing`

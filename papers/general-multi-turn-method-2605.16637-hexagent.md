@@ -8,8 +8,8 @@
 - 论文链接：https://arxiv.org/abs/2605.16637
 - 代码链接：未验证到公开代码仓库
 - 项目链接 / 文档链接（如果有）：未验证到公开项目入口
-- 本地 PDF：`pdfs/agentic-2605.16637-hexagent.pdf`
-- 抽取文本：`.tmp_pdftext/2605.16637-hexagent.txt`
+- 本地 PDF：`pdfs/general-multi-turn-method-2605.16637-hexagent.pdf`
+- 抽取文本：`.tmp_pdftext/general-multi-turn-method-2605.16637-hexagent.txt`
 - 研究方向关键词：
   - `Agent Runtime`
   - `Serving Scheduler`

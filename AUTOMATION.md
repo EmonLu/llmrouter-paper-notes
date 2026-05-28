@@ -2,9 +2,9 @@
 
 这个仓库现在提供一个最小自动化入口：
 
-- 你给我一篇 PDF
+- 你给我一篇 PDF，或者一个 arXiv 链接
 - 我先用脚本把它纳入仓库
-- 自动生成对应的 `papers/<id>-<slug>.md` 骨架
+- 自动生成对应的 `papers/<scope>-<turn-type>-<artifact-type>-<id>-<slug>.md` 骨架
 - 自动抽取 `pdftotext` 文本到 `.tmp_pdftext/`
 - 同步更新 `papers-manifest.json`、`reading-queue.md`、`LOCAL_PDF_INDEX.md`
 - 然后再让 Hermes 按当前高强度模板继续补全内容
@@ -21,23 +21,39 @@
 
 `python3 auto_generate_paper_note.py /绝对路径/你的论文.pdf --copy`
 
+如果直接给 arXiv abs 链接：
+
+`python3 auto_generate_paper_note.py https://arxiv.org/abs/2601.17814 --copy --scope multimodal --turn-type single-turn --artifact-type benchmark`
+
+如果直接给 arXiv pdf 链接：
+
+`python3 auto_generate_paper_note.py https://arxiv.org/pdf/2601.17814.pdf --copy --scope multimodal --turn-type single-turn --artifact-type benchmark`
+
 如果你已经把 PDF 放进仓库里，也可以直接：
 
-`python3 auto_generate_paper_note.py pdfs/foundation-2606.12345-some-paper.pdf`
+`python3 auto_generate_paper_note.py pdfs/general-single-turn-method-2606.12345-some-paper.pdf`
 
 如果标题识别不准，可以手动指定：
 
-`python3 auto_generate_paper_note.py /绝对路径/paper.pdf --copy --paper-id 2606.12345 --title "Some Paper Title" --slug some-paper`
+`python3 auto_generate_paper_note.py /绝对路径/paper.pdf --copy --scope multimodal --turn-type single-turn --artifact-type benchmark --paper-id 2606.12345 --title "Some Paper Title" --slug some-paper`
+
+## 2.1 命名维度
+
+- scope 可选值：`general` / `coding-agentic` / `multimodal`
+- turn-type 可选值：`single-turn` / `multi-turn`
+- artifact-type 可选值：`method` / `dataset` / `benchmark` / `survey` / `repo`
 
 ## 3. 脚本会做什么
 
-1. 尝试从文件名推断 `paper_id`
-2. 用 `pdftotext` 抽取前两页，粗略推断标题
-3. 生成：
-   - `papers/<paper_id>-<slug>.md`
-   - `.tmp_pdftext/<paper_id>-<slug>.txt`
-4. 若传了 `--copy`，把 PDF 复制进 `pdfs/`
-5. 若能识别 `paper_id`，同步更新：
+1. 如果输入是 arXiv `abs` / `pdf` 链接，先自动下载 PDF（`abs` 会自动转成对应 `pdf`）
+2. 尝试从文件名或链接中推断 `paper_id`
+3. 用 `pdftotext` 抽取前两页，粗略推断标题
+4. 结合 `scope / turn-type / artifact-type` 生成统一前缀
+5. 生成：
+   - `papers/<scope>-<turn-type>-<artifact-type>-<paper_id>-<slug>.md`
+   - `.tmp_pdftext/<scope>-<turn-type>-<artifact-type>-<paper_id>-<slug>.txt`
+6. 若传了 `--copy`，把 PDF 复制进 `pdfs/`
+7. 若能识别 `paper_id`，同步更新：
    - `papers-manifest.json`
    - `reading-queue.md`
    - `LOCAL_PDF_INDEX.md`

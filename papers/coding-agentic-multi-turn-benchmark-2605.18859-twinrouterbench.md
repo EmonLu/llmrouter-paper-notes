@@ -7,8 +7,8 @@
 - 会议 / 期刊：arXiv:2605.18859 [cs.LG, cs.AI]
 - 论文链接：https://arxiv.org/abs/2605.18859
 - 代码链接：https://github.com/CommonstackAI/TwinRouterBench
-- 本地 PDF：`pdfs/agentic-2605.18859-twinrouterbench.pdf`
-- 抽取文本：`.tmp_pdftext/2605.18859-twinrouterbench.txt`
+- 本地 PDF：`pdfs/coding-agentic-multi-turn-benchmark-2605.18859-twinrouterbench.pdf`
+- 抽取文本：`.tmp_pdftext/coding-agentic-multi-turn-benchmark-2605.18859-twinrouterbench.txt`
 - 研究方向关键词：
   - `Agentic LLM Routing`
   - `Step-level Routing Benchmark`

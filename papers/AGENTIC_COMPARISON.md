@@ -1,288 +1,139 @@
-# papers/AGENTIC_COMPARISON
+# Coding-Agentic Router 跨论文对比
 
-这个文件不是论文摘要，而是专门给 `agentic` 组用的设计对照页。
+这份文件现在专门服务 `coding-agentic router` 设计。
+它不再只回答“哪篇 paper 更像 agent work”，而是直接比较：
+1. 它控制的是哪一层：task prior / workflow / granularity / budget / recovery / substrate / benchmark
+2. 它看什么 state 信号
+3. 它用什么决策机制
+4. 数据或 benchmark 的规模、类别、构建方式是什么
+5. 它的推理成本主要在哪里
+6. 新模型或新 workflow 加进来时，代价高不高
+7. 它适合直接复用什么，不适合照搬什么
 
-它要回答的不是：
-- 哪篇 paper 分数更高
+## 1. 先给总图：Coding-Agentic Router 最终要分 6 层
 
-而是：
-- 这篇 paper 在 coding agent runtime 里控制的是哪一层？
-- 它对我的 SWE-bench agent router 最有用的部件是什么？
-- 哪些值得复用，哪些不能原样照搬？
-
-当前 agentic 组共 8 篇：
-- 2604.14228 — Dive into Claude Code
-- 2604.23626 — GraphPlanner
-- 2605.00410 — Agent Capsules
-- 2604.05164 — TAB
-- 2604.08369 — TrACE
-- 2408.03314 — Test-time Compute
-- 2501.19393 — s1
-- 2310.03046 — EcoAssistant
-
-## 1. 先给一个总分层
-
-如果按“对 coding agent runtime 控制面的哪一层最有帮助”来分，这 8 篇最好拆成 5 组：
-
-### A. Runtime Architecture / Control Plane
-- 2604.14228 — Dive into Claude Code
-
-作用：
-- 定义 runtime substrate
-- 定义 tool loop / permission / compaction / session persistence / subagent delegation
-- 它不是 policy paper，而是 agent 系统底座 paper
-
-### B. Workflow Controller
-- 2604.23626 — GraphPlanner
-
-作用：
-- 定义 workflow-level routing
-- 决定 role、workflow path、backbone 组合
-- 最接近“agentic router 本体”
-
-### C. Granularity Controller
-- 2605.00410 — Agent Capsules
-
-作用：
-- 定义 execution granularity routing
-- 决定一步一步拆开执行，还是 compound execution
-- 直接对应 coding agent 里的 fine-grained vs compound mode
-
-### D. Budget / Adaptive Compute Controller
-- 2604.05164 — TAB
-- 2604.08369 — TrACE
-- 2408.03314 — Test-time Compute
-- 2501.19393 — s1
-
-作用：
-- 决定当前 step 要不要继续想、想多久、是否追加 rollout、是否升级 compute
-- 这是 coding agent router 里最容易先落地的一层
-
-### E. Memory / Retrieval / Escalation Support
-- 2310.03046 — EcoAssistant
-
-作用：
-- 提供 solved-case retrieval
-- 提供 hierarchy escalation
-- 提供 runtime feedback 驱动的 memory 增益思路
-
-## 2. 横向总表
-
-| paper | 主要角色 | 控制对象 | 控制粒度 | 决策方式 | 最适合放进哪一层 | 最值得复用的东西 | 不该原样照搬的东西 |
-|---|---|---|---|---|---|---|---|
-| Dive into Claude Code | runtime architecture | tool loop / permission / compaction / subagent / session | system-level | system design + runtime mechanism | control plane substrate | permission model、compaction、session persistence、delegation | 具体产品化细节与实现边界 |
-| GraphPlanner | workflow controller | role + backbone + workflow path | trajectory / workflow-level | learned policy + graph memory | workflow controller | workflow routing、graph memory、role-model joint action | 直接照搬全 RL workflow generation |
-| Agent Capsules | granularity controller | execution mode / group composition | group / step-level | heuristic + quality gate + escalation ladder | granularity controller | compound vs fine-grained mode、quality gate、escalation ladder | 用 LLM judge 直接替代真实代码验证 |
-| TAB | budget controller | per-turn token budget | turn-level | learned budget policy | budget controller | history-aware budget allocation、global budget constraint | 数学任务 reward 与状态定义 |
-| TrACE | cheap online controller | whether to continue rollout | step-level | training-free agreement rule | budget / recovery gate | disagreement 作为免费 runtime 信号 | 直接用文本 plurality 作为代码动作等价判断 |
-| Test-time Compute | compute policy framework | compute allocation / revision / search depth | step / program-level | framework + policy family | budget controller 理论层 | 把 compute 当成显式动作空间 | 只用 FLOPs 近似真实 runtime 成本 |
-| s1 | simple budget baseline | stop / continue thinking | generation-level | budget forcing | inner-loop budget primitive | stop/continue 硬控制、追加 think budget | 直接追加 `Wait` 这种字符串技巧 |
-| EcoAssistant | retrieval + escalation support | assistant hierarchy / retrieval / escalation | runtime-level | retrieval + hierarchy + execution feedback | memory / recovery support | solved-case retrieval、execution-aware escalation | 直接照搬其数据与 memory 累积方式 |
-
-## 3. 这 8 篇之间到底是什么关系
-
-最短关系图可以这么看：
-
-```text
-Claude Code paper
-  ↓ 给出 runtime substrate
-GraphPlanner
-  ↓ 决定 workflow 怎么走
-Agent Capsules
-  ↓ 决定 execution granularity
-TAB / TrACE / Test-time Compute / s1
-  ↓ 决定当前 step 给多少 compute
-EcoAssistant
-  ↓ 提供 retrieval / escalation / memory 增益
-```
-
-所以这几篇不是重复，而是分层互补：
-- 2604.14228 解决“agent 系统底座怎么搭”
-- GraphPlanner 解决“workflow 怎么选”
-- Agent Capsules 解决“执行粒度怎么选”
-- TAB / TrACE / Test-time Compute / s1 解决“当前 step 算多久”
-- EcoAssistant 解决“失败后怎么借历史经验恢复”
-
-## 4. 如果按设计价值排序
-
-### 4.1 对系统骨架最重要
-1. 2604.14228 — Dive into Claude Code
-2. 2604.23626 — GraphPlanner
-3. 2605.00410 — Agent Capsules
-
-原因：
-- 这三篇决定的不是某个局部超参，而是 runtime system 的基本形状
-- 如果这三层没有，后面的 budget policy 很容易挂在错误的执行骨架上
-
-### 4.2 对第一版最容易先落地
-1. 2604.08369 — TrACE
-2. 2501.19393 — s1
-3. 2604.05164 — TAB
-
-原因：
-- TrACE：几乎可以零训练先上
-- s1：给你最简单的 stop / continue primitive
-- TAB：再往上升级成 history-aware budget controller
-
-### 4.3 对长期上限最关键
-1. 2604.23626 — GraphPlanner
-2. 2605.00410 — Agent Capsules
-3. 2604.05164 — TAB
-
-原因：
-- 这些论文都说明：真正的 agentic router 动作空间不能只有 model id
-- 还必须包含 workflow、granularity、budget 这些 runtime action
-
-## 5. 对 Coding Agentic Router 的直接映射
-
-如果把你的目标系统拆成：
-- backbone router
-- budget controller
-- workflow controller
-- granularity controller
-- recovery gate
-- memory manager
-- tool / permission layer
-- observability layer
-
-那么这 8 篇最自然的映射是：
-
-### 5.1 Control Plane Substrate
+### 1.1 runtime substrate
 - Dive into Claude Code
 
-给你的东西：
-- tool loop
-- permission boundary
-- compaction pipeline
-- session persistence
-- subagent delegation
-- extensibility interface
+### 1.2 task-level prior
+- Triage
 
-### 5.2 Workflow Controller
+### 1.3 workflow controller
 - GraphPlanner
+- EcoAssistant（规则式、工具驱动）
 
-给你的东西：
-- trajectory-state → workflow action
-- role/backbone/workflow 联合动作
-- graph memory 作为状态编码器
-
-### 5.3 Granularity Controller
+### 1.4 granularity controller
 - Agent Capsules
 
-给你的东西：
-- 是否拆成多个细步执行
-- 是否把多步合并成 compound call
-- quality gate 与 escalation ladder
-
-### 5.4 Budget Controller
+### 1.5 budget / adaptive compute controller
 - TAB
 - TrACE
 - Test-time Compute
 - s1
 
-给你的东西：
-- TAB：history-aware budget allocation
-- TrACE：cheap online uncertainty signal
-- Test-time Compute：compute policy 的总框架
-- s1：最小可用的 continue-thinking primitive
+### 1.6 step-level evaluator / productized router
+- TwinRouterBench
+- UncommonRoute
 
-### 5.5 Memory / Recovery Support
-- EcoAssistant
+## 2. Coding-agentic 核心论文横向总表
 
-给你的东西：
-- solved-case retrieval
-- hierarchy escalation
-- execution feedback 驱动的经验积累
+| 论文 / repo | 控制层 | 数据 / benchmark（体量、类别、构建方式） | 核心思想 | 输入信号 | 决策机制 | 推理成本 / 模型栈 | 新模型 / 新模式接入成本 | 优势 | 短板 |
+|---|---|---|---|---|---|---|---|---|---|
+| Dive into Claude Code | runtime substrate | 不是标准 benchmark；是对 Claude Code 公开源码快照 v2.1.88 的架构分析 | 真正复杂的不是 agent loop，而是 loop 外围的 permission、compaction、memory、subagent、resume/fork | 当前 query、工具结果、会话状态、CLAUDE.md、权限状态、历史 transcript | reactive query loop + permission system + hooks | 主执行模型是 Claude 系列；成本不在额外 router，而在整套 runtime 维护 | 中。换 backbone 不是最难，补权限/会话/工具语义才难 | 给你最像 production 的 coding-agent 底座 | 不是可直接训练的 routing policy；没有 step-level evaluator |
+| Triage | task-level prior | SWE-bench Lite 300 tasks；3 个 tiers；每 task × tier 跑 3 次，多数表决；总 2700 agent runs 的 protocol | 利用 repo health / coverage / task metadata，在执行前先给 issue 一个 capability tier | issue 描述、目标文件 code-health、测试覆盖率、任务元数据 | heuristic / ML classifier / perfect-hindsight oracle | 输出 light/standard/heavy tier，不直接选具体模型；推理成本很低 | 中。若只换 tier 内代表模型较低，若 tier 边界变化要重新验证 pass/cost gate | 最适合当 coarse prior；解释性强 | 不是 step-level；唯一 recovery 只是 fail 后重跑 heavy |
+| EcoAssistant | cheap-to-strong escalation + memory | Places/Weather/Stock 各 100；Mixed-100 等；通过 API tool-use + execution feedback 构造在线经验 | 先让便宜模型试，失败再升级；强模型成功轨迹沉淀成 future demonstrations | query、历史 demo、当前 assistant 层级、执行报错、会话历史、成功/失败信号 | 规则式 hierarchy + execution-driven retry + retrieval | 模型栈：LLaMA-2-13B / GPT-3.5 / GPT-4 + mpnet embedding + Chroma；成本主要花在多轮修复与升级 | 中。新增 API 域/模型要改 prompt、executor、evaluator、memory | 最贴近 tool-using runtime；memory/retrieval 很有启发 | 权限层很弱；恢复更像 restart+escalate，不是真正 checkpoint recovery |
+| GraphPlanner | workflow controller | 14 个任务、6 个领域；大多 train/test 为 500/50；历史轨迹构成图记忆 | 直接路由整条 workflow，而不是只选模型；在每步联合选 role + backbone | query、当前 workflow graph、历史 memory graph、role set、candidate model set、cost utility | GARNet 图编码 + PPO | 候选 12 个 backbone，从 7B/8B/9B 到 70B/8x22B；训练成本主要在 RL 和图状态，而不是在线 router | 高。角色、图 schema、动作空间变化都可能要求重训 | 最接近“agentic router 本体” | 接入和训练成本高；工具环境不够重；显式 recovery 弱 |
+| Agent Capsules | granularity controller | 4 条多 agent pipeline，5–14 agents；不是单一公共 benchmark，而是系统 benchmark | 控制“单 agent 调一次”还是“多个 agent 合并成 compound call” | topology、group 行为 fingerprint、rolling quality、telemetry、当前 mode | rule-based controller + quality gate + escalation ladder | 常见 backbone 是 Sonnet/Haiku，也补 GPT-4o/Gemini；成本主要在 evaluator 与 runtime telemetry，不在训练 | 中。新增 execution mode 要改 compiler/executor/evaluator | 对 token/latency 很直接；granularity action 很适合 coding agent | 强依赖 evaluator；不是模型层 router |
+| TAB | turn-level budget controller | MATH-500、AMC23、MATH L5、OlympiadBench、AIME25；OOD 到 TheoremQA/BBEH-Mini/GPQA；训练用 MATH L5 | 把有限总预算分给真正关键的 turn，而不是平均分配 | 历史 trajectory、当前子问题、全局预算、可选预算桶 | GRPO-trained budget policy | 执行器 L1-Qwen3-8B-Exact；Budgeter 用 Qwen3-1.7B/4B；成本主要在训练 controller | 中到高。若从数学迁到 coding，需要重做状态与奖励 | step-level budget 思路非常直接可迁移 | 依赖子问题分解质量；工具环境外推仍有 gap |
+| TrACE | cheap online budget gate | GSM8K 50 题 + MiniHouse 90 task-seed；training-free | 用多次 rollout 的 action agreement 当不确定性信号，决定是否继续采样 | 当前 prefix、候选动作集合、agreement、超参数 | training-free rule | Qwen2.5 3B Instruct + 无参数控制器；成本最低 | 中。控制器简单，但 action canonicalization 依赖接口 | 最容易先落地；几乎零训练 | agreement 高不代表动作对；对 code/tool action 需重做等价归并 |
+| Test-time Compute | compute policy framework | 数学/推理 benchmark 为主；比较 parallel search vs sequential revision | 真正的动作不是只选模型，而是选 compute program | prompt、difficulty、budget、candidate traces、verifier score | heuristic difficulty-conditioned policy | 成本主要在更多 search/revision/verifier；不是轻量在线 router | 中。接入新模式主要是新 compute program，不是新模型 | 给 budget/action space 理论框架 | 不是 production runtime；权限/工具语义都没覆盖 |
+| s1 | minimum continue-thinking primitive | s1K 1000 条高质量 reasoning 训练集；推理阶段主要是 budget forcing | 如果模型会基本 reasoning，就可通过 stop/continue forcing 提升性能 | 问题、当前 reasoning trace、最小/最大 thinking budget | generation-time hard rule | s1-32B 基于 Qwen2.5-32B-Instruct；成本直接体现在更长 thinking | 低。更多是 inner-loop primitive，而不是依赖候选池 | 最简单可复现的 compute 控制 primitive | 对真实 agent 过于简化；没有环境状态 |
+| TwinRouterBench | step-level benchmark | 静态轨 970 rows / 520 trajectories / 5 benchmarks；动态轨支持 500-case SWE-bench Verified，论文报告 100-case held-out | 用 execution-verified label 把“当前 step 最便宜且足够的 tier”做成 benchmark | router-visible prefix：prompt、历史消息、tool output、logs、partial edits | benchmark 本身不绑定方法；代表 router 有 SR-KNN / UncommonRoute / rule-based 等 | 固定 11-model pool、4 tiers；成本主要在 benchmark label 构造和动态 replay | 高。改 model pool/tier/pricing 基本要重标或新版本化 | 终于把 step-level routing 说清楚，也给了 static+dynamic 闭环 | 强绑定当前模型生态快照；动态覆盖目前仍以 SWE 为主 |
+| UncommonRoute repo | productized local router | 使用 TwinRouterBench 训练/校准/holdout 切分；产品化 control plane | 不只路由模型，还开始路由 protocol、budget cap、feedback overlay | metadata + structural + embedding + runtime-aware signals（step_type、has_tool_results、failure kind 等） | local ensemble router + calibration + policy layer | 依赖 sentence-transformers、xgboost、sklearn 等；成本主要在控制面和集成 | 中。新增上游模型、协议、预算策略需要改配置和再校准 | 最像“把 benchmark router 真落地”的工程参考 | 当前仍偏 product prototype，很多 policy 还在演化 |
 
-## 6. 哪几篇应该先看，哪几篇后看
+## 3. Coding-agent 数据集 / benchmark 应该怎么汇总
 
-### 最小闭环阅读顺序
-1. 2604.14228 — 先把 runtime substrate 看清楚
-2. 2604.23626 — 再看 workflow controller
-3. 2605.00410 — 再看 granularity controller
-4. 2604.08369 — 再看 cheap online budget gate
-5. 2604.05164 — 再看 learned budget controller
-6. 2310.03046 — 最后补 memory / escalation
+### 3.1 你当前最该区分的三类资产
+| 层 | 资产 | 当前可确认体量 / 备注 | 构建方式 | 主要用途 |
+|---|---|---|---|---|
+| benchmark | SWE-bench / SWE-Bench Pro / SWE-PolyBench / SWE-ContextBench | 当前综合阶段先保留 benchmark 角色划分，精确体量统一以各自单篇笔记为准 | benchmark-first evaluator | 验收与对外比较 |
+| step-level benchmark | TwinRouterBench | 静态轨 970 rows / 520 trajectories；动态轨支持 500-case SWE Verified | 强模型成功轨迹 -> step prefix -> downgrade-and-verify -> cheapest sufficient tier | 训练/评估 step-level router |
+| dataset / training asset | SWE-bench-train / Multi-SWE-RL / SWE-smith | 当前综合阶段先保留训练资产角色划分，精确体量统一以各自单篇笔记为准 | 同分布训练集、数据扩增、synthetic toolchain | 扩训练量与冷启动 |
 
-这 6 篇能先拼出一个最小闭环。
+### 3.2 现在最缺的不是“再多一个 benchmark 名字”，而是三种可训练信号
+1. task-level 先验信号
+   - repo health
+   - test coverage
+   - file-level complexity
+   - issue metadata
 
-### 第二层补充
-7. 2501.19393 — s1
-8. 2408.03314 — Test-time Compute
+2. step-level runtime signal
+   - 当前 prefix
+   - tool failure kind
+   - 当前 patch / edit / test 状态
+   - disagreement / retry history / stall pattern
 
-这两篇更适合作为：
-- inner-loop budget primitive
-- compute policy 理论背景
+3. recovery signal
+   - 哪些失败值得加 budget
+   - 哪些失败值得换 workflow
+   - 哪些失败要直接升级 backbone 或 verifier
 
-## 7. 如果只保留一个最小系统设计组合
+## 4. 按你最关心的几个问题给设计结论
 
-我会保留这 5 篇：
-- 2604.14228
-- 2604.23626
-- 2605.00410
-- 2604.08369
-- 2310.03046
+### 4.1 哪些论文最适合回答“router 输入 state 应该长什么样？”
+- Triage：任务开始前的 repo/static prior
+- TwinRouterBench：执行时的 router-visible prefix
+- EcoAssistant：tool error + retrieval + escalation state
+- GraphPlanner：workflow state + memory graph
+- Agent Capsules：telemetry + quality gate state
+- TAB / TrACE：turn-level compute signal
 
-理由很简单：
-- 2604.14228：给底座
-- GraphPlanner：给 workflow
-- Agent Capsules：给 granularity
-- TrACE：给 cheap runtime signal
-- EcoAssistant：给 retrieval / escalation
+结论：
+Coding-agent router 至少需要两层 state：
+- issue-level coarse prior
+- step-level runtime state
 
-如果再加第 6 篇，就加：
-- TAB
+### 4.2 哪些论文最适合回答“动作空间不能只是一组 model id”?
+- GraphPlanner：role × backbone × workflow
+- Agent Capsules：execution granularity
+- TAB：budget bucket
+- TrACE：continue sampling or stop
+- TwinRouterBench / Triage：tier 而不是固定 model id
+- UncommonRoute：甚至把 protocol / transport 也拉进动作空间
 
-因为它能把 budget controller 从 heuristic 提升到 history-aware learned policy。
+### 4.3 哪些方法最适合第一版落地？
+- Triage：先做 issue-level coarse prior
+- TrACE：先上 cheap online signal
+- Agent Capsules：把 granularity 当可控变量
+- TwinRouterBench-lite：用你自己的 mini-swe-agent 日志切 step prefix
 
-## 8. 哪些结论最值得固定下来
+### 4.4 哪些方法最容易变成长期维护负担？
+- GraphPlanner：动作空间一变就可能重训
+- TwinRouterBench：model pool 一变就重标
+- EcoAssistant：memory 污染与 evaluator 误判
+- Agent Capsules：若 evaluator 不稳，整个 quality gate 会漂
 
-### 结论 1
-Coding Agentic Router 不是 query router 的直接放大版。
+### 4.5 如果你要把 235B vs 397B 观察接进系统，最自然的接法是什么？
+- Triage 风格：把 repo health / 任务静态特征接成 pre-run prior
+- TwinRouterBench 风格：把 agent 轨迹切成 step prefix，标出“这一步 235B 是否已经足够”
+- TrACE / TAB 风格：再判断失败是“模型能力不够”还是“预算/rollout 不够”
+- Agent Capsules 风格：对某些模式失败，判断是否该改执行粒度而不是只换模型
 
-### 结论 2
-真正的动作空间至少应该包含：
-- workflow
-- granularity
-- budget
-- recovery
-而不只是 model selection。
+## 5. 直接给一套最小系统蓝图
 
-### 结论 3
-如果没有 runtime substrate，后面的 policy 很难稳定挂上去。
+### Phase A：先做能跑的 version
+- runtime substrate：Claude Code paper 的 while-loop + tool loop 思路
+- task prior：Triage 式 repo health signal
+- step signal：TwinRouterBench prefix schema + TrACE disagreement
+- action：先只做 {small/large} × {normal budget/high budget}
+- recovery：verification fail -> raise budget -> switch stronger model -> heavy fallback
 
-### 结论 4
-第一版不一定要先训复杂 controller，先上 cheap online signal 反而更现实。
+### Phase B：再做更强的 version
+- workflow：引入 GraphPlanner 式 role/backbone 联合动作
+- granularity：引入 Agent Capsules 式 group mode
+- memory：引入 EcoAssistant 式 solved-case retrieval，但存更细的 patch/test/tool trace
+- benchmark：做 TwinRouterBench-lite + dynamic replay
 
-### 结论 5
-memory / retrieval / escalation 不是附属模块，而是 agent runtime 成败的关键部分。
+## 6. 一句话结论
 
-## 9. 我的最终建议
-
-如果你下一步是做系统，而不是继续读更多 paper，我建议按下面顺序推进：
-
-### Step 1：先定 runtime substrate
-参考：
-- Dive into Claude Code
-
-### Step 2：先做 rule-based workflow + granularity skeleton
-参考：
-- GraphPlanner
-- Agent Capsules
-
-### Step 3：先接一个 cheap budget gate
-参考：
-- TrACE
-- s1
-
-### Step 4：再升级成 learned budget controller
-参考：
-- TAB
-
-### Step 5：最后补 retrieval / escalation / memory
-参考：
-- EcoAssistant
-
-## 10. 一句话结论
-
-> 这 8 篇 agentic paper 不是在重复讲“怎么路由”，而是在分层回答：agent runtime 底座怎么搭、workflow 怎么选、执行粒度怎么控、每一步算多久、失败后怎么靠 memory 和 escalation 继续跑。
+> Coding Agentic Router 不是把 query router 搬到 SWE-bench 上，而是把 `task prior + step prefix + budget + granularity + recovery + benchmark` 这六层拼起来；其中 TwinRouterBench 负责评测接口，Triage 负责起跑先验，TrACE/TAB 负责预算，Agent Capsules 负责粒度，EcoAssistant 负责 memory/recovery，GraphPlanner 决定长期上限。

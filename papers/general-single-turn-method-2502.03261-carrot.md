@@ -8,7 +8,7 @@
 - 发表时间：2025-02-05 首发 arXiv，当前查看到的版本为 2025-05-19 的 arXiv v2
 - 会议 / 期刊：arXiv preprint
 - 论文链接：https://arxiv.org/abs/2502.03261
-- PDF 路径：../pdfs/foundation-2502.03261-carrot.pdf
+- PDF 路径：../pdfs/general-single-turn-method-2502.03261-carrot.pdf
 - 代码链接：https://huggingface.co/CARROT-LLM-Routing
 - 研究方向关键词：
   - `LLM Routing`

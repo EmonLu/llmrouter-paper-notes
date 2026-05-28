@@ -10,8 +10,8 @@
   - GitHub：https://github.com/RouteWorks/RouterArena
   - leaderboard：https://routeworks.github.io/
   - 数据集：https://huggingface.co/datasets/RouteWorks/RouterArena
-- 本地 PDF：`pdfs/foundation-2510.00202-routerarena.pdf`
-- 抽取文本：`.tmp_pdftext/2510.00202-routerarena.txt`
+- 本地 PDF：`pdfs/general-single-turn-benchmark-2510.00202-routerarena.pdf`
+- 抽取文本：`.tmp_pdftext/general-single-turn-benchmark-2510.00202-routerarena.txt`
 - 研究方向关键词：
   - `LLM Routing Benchmark`
   - `Router Leaderboard`

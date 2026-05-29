@@ -18,9 +18,10 @@
 1. `reading-queue.md`
 2. `papers/INDEX.md`
 3. `datasets-and-benchmarks-overview.md`
-4. `coding-agent-datasets-comparison.md`
-5. `papers/AGENTIC_COMPARISON.md`
-6. `LOCAL_PDF_INDEX.md`
+4. `dataset-schema-comparison.md`
+5. `coding-agent-datasets-comparison.md`
+6. `papers/AGENTIC_COMPARISON.md`
+7. `LOCAL_PDF_INDEX.md`
 
 ## 2. 当前三维分类
 
@@ -103,8 +104,10 @@
   - `reading-queue.md`
   - `papers/INDEX.md`
   - `datasets-and-benchmarks-overview.md`
+  - `dataset-schema-comparison.md`
   - `coding-agent-datasets-comparison.md`
 - 自动化入口：`auto_generate_paper_note.py`
+- 提示词模板：`templates/task-category-prompt-templates.md`
 
 ## 7. 自动化入口
 
@@ -119,8 +122,15 @@
 - `--turn-type single-turn|multi-turn`
 - `--artifact-type method|dataset|benchmark|survey|repo`
 
+如果你想要后续直接复制提示词给 Hermes，可优先参考：
+- `templates/task-category-prompt-templates.md`
+
 ## 8. 下一步最值得继续做的事
 
 - 继续补 dataset-first 资产清单，尤其是 `SWE-bench-train`、`Multi-SWE-RL`、`SPROUT`、`Dgold`、`Djudge`
+- 新增任何带 dataset / benchmark / label asset 的 paper 后，同步更新：
+  - `datasets-and-benchmarks-overview.md`
+  - `dataset-schema-comparison.md`
+  - `coding-agent-datasets-comparison.md`（如果是 coding-agent 方向）
 - 给 coding-agentic 方向单独补一页 `state / action / label / metric` schema 文档
 - 把 multimodal 这条线和 screenshot / GUI / diagram-aware coding agent state 进一步连接起来

@@ -81,6 +81,10 @@
 
 `请继续按仓库当前高强度标准精读 papers/<新文件>.md，并补 appendix / 开源链接 / 数据开放状态，然后清理待补字段。`
 
+如果这篇 paper 含 dataset / benchmark / label asset，再额外明确说：
+
+`如果这篇 paper 含数据集、benchmark 或 label protocol，请同时更新 datasets-and-benchmarks-overview.md、dataset-schema-comparison.md，以及 coding-agent-datasets-comparison.md（若属于 coding-agent 方向）。`
+
 ## 6. 后续可以再升级的方向
 
 如果你要把这件事做成更彻底的自动流程，下一步可以继续加：
@@ -91,6 +95,9 @@
 4. 自动把完成的论文移动到 README / reading-queue 的“已读/已完成二轮精修”区域
 5. 再包一个 shell 命令，例如：
    - `./ingest-paper /path/to/paper.pdf`
+6. 把常用提示词模板固定到：
+   - `templates/task-category-prompt-templates.md`
+   这样 ingest 完后可以直接复制对应 prompt 给 Hermes
 
 ## 7. 注意事项
 

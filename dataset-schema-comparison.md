@@ -658,3 +658,62 @@
 ## 8. 一句话结论
 
 > 对 router 设计最关键的不是“又多读了一个数据集名字”，而是你是否知道它到底属于 query 表、outcome table、budget curve、pairwise preference、task tier label，还是 step prefix label；当前仓库里，General 线最值得盯的是 SPROUT / RouterBench / R2-Bench，Coding-Agentic 线最值得盯的是 Triage + TwinRouterBench。
+---
+
+## 9. 数据集构建流程图
+
+```mermaid
+flowchart TD
+    %% Step 1: Build Query Dataset
+    subgraph S1["Step 1: Build Query Dataset"]
+        direction TB
+        A[Source Benchmarks<br/>MMLU / HumanEval / SWE-bench / Arena...] --> B[Query Collection]
+        B --> C["dataset = {query, GT, difficulty, domain, ...}"]
+    end
+
+    %% Step 2: Build Model Pool Outcome Table
+    subgraph S2["Step 2: Build Model Pool Outcome Table"]
+        direction TB
+        D[Define Model Pool<br/>model_1, model_2, ..., model_n] --> E[Run Each Model on Each Query]
+        E --> F["For model_i:<br/>{model_i, query, response_i, pass/fail, cost_i, latency_i}"]
+        F --> G["Outcome Table:<br/>query × model matrix"]
+    end
+
+    %% Step 3: Label Generation for Router
+    subgraph S3["Step 3: Label for Router Training<br/>(among fixed model pool)"]
+        direction TB
+        H[Define Routing Objective<br/>max quality under budget /<br/>min cost above threshold] --> I{Label Strategy}
+        I -->|Oracle| J["Best model per query<br/>(cheapest that passes)"]
+        I -->|Pairwise| K["Preference: model_i > model_j"]
+        I -->|Tier| L["Tier label:<br/>weak / medium / strong"]
+        I -->|Budget-aware| M["Best (model, budget) pair"]
+    end
+
+    %% Flow connections
+    S1 --> S2
+    S2 --> S3
+
+    %% Final output
+    S3 --> N["Router Training Data"]
+
+    %% Schema mapping
+    subgraph Schemas["Schema Mapping"]
+        direction LR
+        P1["query-only benchmark<br/>(RouterArena)"] -.-> S1
+        P2["query × model outcome table<br/>(RouterBench, SPROUT, MMR-Bench)"] -.-> S2
+        P3["pairwise preference<br/>(RouteLLM Dgold/Djudge)"] -.-> K
+        P4["query × model × budget<br/>(R2-Bench)"] -.-> M
+        P5["task-level hindsight<br/>(Triage)"] -.-> L
+        P6["step-level runtime<br/>(TwinRouterBench)"] -.-> L
+    end
+```
+
+**三步总结：**
+
+| Step | 产出 | 核心结构 |
+|------|------|---------|
+| 1. Query Dataset | 原始题目集 | `{query, GT, difficulty, domain}` |
+| 2. Model Pool Evaluation | 模型表现矩阵 | `{model_i, query, pass/fail, cost, latency}` |
+| 3. Router Label | 路由监督信号 | 取决于策略：oracle best / pairwise / tier / budget-aware |
+
+右侧的 Schema Mapping 展示了文档中 6 类 schema 分别对应到哪一步：Step 1 对应 query-only benchmark，Step 2 对应 outcome table 类，Step 3 的不同分支对应 pairwise preference / tier / budget-aware 等不同标注方式。

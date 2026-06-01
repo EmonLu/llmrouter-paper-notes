@@ -21,7 +21,8 @@
 4. `dataset-schema-comparison.md`
 5. `coding-agent-datasets-comparison.md`
 6. `papers/AGENTIC_COMPARISON.md`
-7. `LOCAL_PDF_INDEX.md`
+7. `open-source-router-mechanisms-in-practice.md`
+8. `LOCAL_PDF_INDEX.md`
 
 ## 2. 当前三维分类
 
@@ -106,6 +107,7 @@
   - `datasets-and-benchmarks-overview.md`
   - `dataset-schema-comparison.md`
   - `coding-agent-datasets-comparison.md`
+  - `open-source-router-mechanisms-in-practice.md`
 - 自动化入口：`auto_generate_paper_note.py`
 - 提示词模板：`templates/task-category-prompt-templates.md`
 
